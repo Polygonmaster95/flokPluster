@@ -10,7 +10,7 @@ function readAllMovies()
         // output data of each row
         while($rowDishes = $resultDishes->fetch_assoc()) {
             echo $rowDishes["movieName"] . "<br>";
-            echo '<img src="img/'.$rowDishes["Image"] . '" alt="Delicious food"><br><br><br>';
+            echo '<img src="img/'.$rowDishes["Image"] . '" alt="A cool movie"><br><br><br>';
             ;
         }
     } else {

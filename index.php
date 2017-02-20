@@ -1,4 +1,4 @@
-<?php //require_once(""); ?>
+<?php require_once("functions.php"); ?>
 <html>
 <head>
     <title>FlokPluster</title>
@@ -33,7 +33,7 @@
         <h2>Look at all these movies! </h2>
         <div class="container">
             <br/><br/>
-            <?php ?> <!-- displays the function-->
+            <?php readAllMovies()?> <!-- displays the function-->
             <br/><br/>
         </div>
         </footer>
