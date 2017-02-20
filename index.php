@@ -21,9 +21,8 @@
         </div>
         <nav>
             <ul>
-                <li><a href="food.php">Menu</a></li>
-                <li><a href="reservetab.php">Get me a Table!</a></li>
-                <li><a href="contact.php">Tell us a secret</a></li>
+                <li><a href="index.php">Movies!</a></li>
+                <li><a href="login.php">Add a movie!!</a></li>
             </ul>
         </nav>
     </div></header>

@@ -1,5 +1,6 @@
-<?php require_once ("functions.php");
-require_once("includes/session.php");
+<?php require_once("connections/connection.php");
+require_once ("functions.php");
+//require_once("includes/session.php");
 require_once("ImageResizer.php");
 
 if (!logged_in()) {
@@ -9,14 +10,12 @@ if (!logged_in()) {
 define("MAX_SIZE", "3000"); //definition of may file size
 $upmsg=[]; // for error messages
 
-if(isset($_POST['submitDish'])) {
+if(isset($_POST['submitMovie'])) {
     $text = $_POST['text'];
     $text = htmlspecialchars($_POST['text']);
     $text = mysqli_real_escape_string($conn, htmlspecialchars(trim($_POST['text'])));
     $text = prep($_POST['text']);
-    $dishName = trim(prep($_POST['dishName']));
-    $description = trim(prep($_POST['Description']));
-    $price = $_POST['Price'];
+    $dishName = trim(prep($_POST['movieName']));
     $file = $_FILES['Image'] ['tmp_name']; //handles the image
     $imageName = $_FILES['Image']['name']; // handles the image
     //Checking the size and type of the image-file
@@ -56,14 +55,14 @@ if(isset($_POST['submitDish'])) {
 
     $resOBJ->resizeToWidth(350); // uses resizeToWidth (will keep scale)
     $resOBJ->save($newName);
-    $query = "INSERT INTO dish (DishName, Description, Price, Image) VALUES ('$dishName','$description','$price','$iName')";
+    $query = "INSERT INTO movies (movieName, Image) VALUES ('$movieName','$iName')";
     mysqli_query($conn, $query);
-    array_push($upmsg, "Upload such sauceful!");
+    array_push($upmsg, "Movie was uploaded!");
 
 
 }
 
-if(isset($_POST['submitNews'])){//when clicked submit, it will make a new entry in the db with a description
+/*if(isset($_POST['submitNews'])){//when clicked submit, it will make a new entry in the db with a description
     $text = $_POST['text'];
     $text = htmlspecialchars($_POST['text']);
     $text = mysqli_real_escape_string($conn,htmlspecialchars(trim($_POST['text'])));
@@ -95,14 +94,14 @@ if(isset($_POST['submitOpenhours'])) { //when clicked submit, it will make a new
 
 (isset($_POST['reset']));
 $resetQuery = "UPDATE `reserveTime` SET  `isReserved` =  '0'";
-mysqli_query($conn, $resetQuery);
+mysqli_query($conn, $resetQuery); */
 ?>
 
 <!DOCTYPE HTML>
 
 <html>
 <head>
-    <title>Chop-Sue-Me</title>
+    <title>Movies!</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css" />
 </head>
@@ -110,7 +109,7 @@ mysqli_query($conn, $resetQuery);
 
 <!-- Header -->
 <header id="header">
-    <a href="index.php" class="logo">Chop-Sue-Me</a>
+    <a href="index.php" class="logo">flokPluster</a>
     </div></header>
 
 <!-- Two -->
@@ -125,33 +124,29 @@ mysqli_query($conn, $resetQuery);
         <?php endif;?>
         <div class="container">
             <br/><br/>
-            Add a new dish
+            Add a new Movie
             <br>
-            <!-- The admin can add a new dish to the food menu -->
-            <form action="" method="post" enctype="multipart/form-data" name="Add a Menu-item">
+            <!-- The admin can add a new movie to the roster -->
+            <form action="" method="post" enctype="multipart/form-data" name="Add a Movie">
                 <br>
-                <input type="text" name="dishName" placeholder="Enter the dish name" required>
-                <br>
-                <input type="text" name="Description" placeholder="Enter the description"required>
-                <br>
-                <input type="number" name="Price" placeholder="Enter a price"required>
+                <input type="text" name="movieName" placeholder="Enter the movie name" required>
                 <br>
                 <a>Upload image</a> <input type="file" name="Image" placeholder="Upload image"required>
                 <br>
-                <input type="submit" name="submitDish" value="Add"/>
+                <input type="submit" name="submitMovie" value="Add"/>
             </form>
-            <br><br>
+           <!-- <br><br>
             Add News    <br>
             <!-- The admin can change the news -->
-            <form action="" method="post" name="news"><br>
+            <!-- <form action="" method="post" name="news"><br>
                 <input type="text" name="DescriptionNews" placeholder="Enter some new news"required>
                 <br>
                 <input type="submit" name="submitNews" value="Add"/>
             </form>
             <br><br>
-            Change the Description    <br>
+            Change the Description    <br> -->
             <!-- The admin can change the "about"-text -->
-            <form action="" method="post" name="about"><br>
+            <!--<form action="" method="post" name="about"><br>
                 <input type="text" name="DescriptionAbout" placeholder="New stuff about you"required>
                 <br>
                 <input type="submit" name="submitAbout" value="Add"/>
@@ -160,7 +155,7 @@ mysqli_query($conn, $resetQuery);
 
             Change opening hours <br>
             <!-- The admin can change the opening hours -->
-            <form action="" method="post" name="openCloseHours"><br>
+           <!-- <form action="" method="post" name="openCloseHours"><br>
                 <input type="text" name="openHours" placeholder="F.ex: '14:00 - 22:00'"required>
                 <br>
                 <input type="submit" name="submitOpenhours" value="Add"/>
@@ -178,7 +173,7 @@ mysqli_query($conn, $resetQuery);
             </form>
             <br/><br/>
         </div>
-    </div>
+    </div> -->
 </section>
 <footer id="footer">
     <div class="copyright">
