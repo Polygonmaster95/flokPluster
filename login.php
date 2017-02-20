@@ -1,27 +1,27 @@
 <?php require_once("connections/connection.php");
 require_once("includes/session.php");
 require_once("functions.php");
-	if (logged_in()) {
-		redirect_to("admin.php"); //redirects if already logged in
-	}
+	//if (logged_in()) {
+		//redirect_to("admin.php"); //redirects if already logged in
+	//}
 
 $message=[];
 
 	// START FORM PROCESSING
 	if (isset($_POST['submit'])) { // Form has been submitted.
-		$username = trim(mysqli_real_escape_string($conn, $_POST['User'])); //sets the $username equal to User
-		$password = trim(mysqli_real_escape_string($conn,$_POST['Pass'])); // sets the $password equal to Pass
+		$username = trim(mysqli_real_escape_string($conn, $_POST['user'])); //sets the $username equal to User
+		$password = trim(mysqli_real_escape_string($conn,$_POST['pass'])); // sets the $password equal to Pass
 
-		$query = "SELECT ID, user, pass FROM login WHERE users = '".$username."' LIMIT 1"; // checks for the user
+		$query = "SELECT ID, user, pass FROM login WHERE user = '".$username."' LIMIT 1"; // checks for the user
 		$result = mysqli_query($conn, $query);
 			if (mysqli_num_rows($result) == 1)
 			{
 				// username/password authenticated
 				// and only 1 match
 				$found_user = mysqli_fetch_array($result);
-                if(password_verify($password, $found_user['Pass'])){ //checks if the entered password fits the one stored in the db
+                if(password_verify($password, $found_user['pass'])){ //checks if the entered password fits the one stored in the db
 				    $_SESSION['User_id'] = $found_user['ID'];
-				    $_SESSION['User'] = $found_user['users'];
+				    $_SESSION['User'] = $found_user['user'];
 				    redirect_to("admin.php");
 				} 
 				else {
@@ -70,11 +70,12 @@ $message=[];
             Password:  123<br><br><br><br>
                 <form action="" method="post">
                     Username:
-                    <input type="text" name="User" maxlength="30" value="" placeholder="Enter you username" required />
+                    <input type="text" name="user" maxlength="30" value="" placeholder="Enter you username" required />
                     Password:
-                    <input type="password" name="Pass" maxlength="30" value="" placeholder="Enter you password" required/>
+                    <input type="password" name="pass" maxlength="30" value="" placeholder="Enter you password" required/>
                     <input type="submit" name="submit" value="Login" />
                 </form>
+            <a href="admin.php">or just go, who cares</a>
             </div>
     </section>
     <footer id="footer">

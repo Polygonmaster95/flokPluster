@@ -3,9 +3,9 @@ require_once ("functions.php");
 //require_once("includes/session.php");
 require_once("ImageResizer.php");
 
-if (!logged_in()) {
-    redirect_to("login.php"); // redirect if not logged in
-}
+//if (!logged_in()) {
+    //redirect_to("login.php"); // redirect if not logged in
+//}
 
 define("MAX_SIZE", "3000"); //definition of may file size
 $upmsg=[]; // for error messages

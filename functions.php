@@ -1,6 +1,6 @@
 <?php require_once("connections/connection.php");
 
-function readAllMovieses()
+function readAllMovies()
 {
     global $conn;
     $sqlDishes = "SELECT movieName, Image FROM movies"; /*SELECT column_name FROM table_name*/
@@ -9,9 +9,7 @@ function readAllMovieses()
     if ($resultDishes->num_rows > 0) {
         // output data of each row
         while($rowDishes = $resultDishes->fetch_assoc()) {
-            echo $rowDishes["DishName"] . "<br>" .
-                $rowDishes["Description"] . "<br>" .
-                "Price: " . $rowDishes["Price"] . " Euro" . "<br>";
+            echo $rowDishes["movieName"] . "<br>";
             echo '<img src="img/'.$rowDishes["Image"] . '" alt="Delicious food"><br><br><br>';
             ;
         }
@@ -21,42 +19,9 @@ function readAllMovieses()
     $conn->close();
 }
 
-function readDailySpecial()
-{
-    global $conn1;
-    $D= date("D");
-    $sqlSpecial = "SELECT DailySpecialName, Description FROM dailyspecialtable WHERE CDate = '$D'"; //only selects the special in which CDate equals the date that is placed in the database
-    $resultSpecial = $conn1->query($sqlSpecial);
 
-    if ($resultSpecial->num_rows > 0) {
-        // output data of each row
-        while($rowSpecial = $resultSpecial->fetch_assoc()) {
-            echo $rowSpecial["DailySpecialName"] . "<br>" .
-                $rowSpecial["Description"] . "<br><br><br>";
-        }
-    } else {
-        echo "0 results";
-    }
-    $conn1->close();
-}
-class newsAbout
-{
-    function __construct($table_name)
-    {
-        global $conn;
-        $sqlNews = "SELECT * FROM `".$table_name."` ORDER BY `ID` LIMIT 1";
-        $resultNews = $conn->query($sqlNews);
 
-        if ($resultNews->num_rows > 0) {
-            // output data of each row
-            while ($rowNews = $resultNews->fetch_assoc()) {
-                echo $rowNews["Description"] . "<br><br><br><br>";
-            }
-        } else {
-            echo "0 results";
-        }
-    }
-}
+
 
 	function redirect_to($location) {
         header("Location: {$location}");
